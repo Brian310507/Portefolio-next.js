@@ -45,6 +45,10 @@ const blocLinks = [
     title: "Bloc 6",
     path: "/blocs/bloc6",
   },
+  {
+    title: "Tableau de compétence",
+    path: "/blocs/tableau-competence",
+  },
 ];
 
 const Navbar = () => {
