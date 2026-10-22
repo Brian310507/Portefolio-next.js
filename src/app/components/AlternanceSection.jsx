@@ -14,7 +14,7 @@ const AlternanceSection = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-white mb-4">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-violet-700">
-              Recherche d'Alternance
+              Recherche d&apos;Alternance
             </span>
           </h2>
         </div>
@@ -29,8 +29,8 @@ const AlternanceSection = () => {
             <h3 className="text-2xl font-bold text-white mb-4">Alternance 2025-2026</h3>
             <p className="text-[#ADB7BE] mb-4">
               Je recherche une alternance en développement web ou applicatif pour la rentrée 2025-2026, 
-              avec une perspective de prolongation jusqu'en master. Cette expérience professionnelle 
-              complémentaire à ma formation académique me permettra d'acquérir une expertise pratique 
+              avec une perspective de prolongation jusqu&apos;en master. Cette expérience professionnelle 
+              complémentaire à ma formation académique me permettra d&apos;acquérir une expertise pratique 
               tout en contribuant activement à des projets concrets.
             </p>
             <ul className="space-y-2 text-[#ADB7BE]">
@@ -76,7 +76,7 @@ const AlternanceSection = () => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-violet-400 mr-2">•</span>
-                    <span>Culture d'apprentissage et d'innovation</span>
+                    <span>Culture d&apos;apprentissage et d&apos;innovation</span>
                   </li>
                 </ul>
               </div>

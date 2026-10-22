@@ -6,7 +6,7 @@ export default function Bloc1() {
   return (
     <main className="flex min-h-screen flex-col bg-[#121212]">
       <Navbar />
-      <div className="container mt-24 mx-auto px-12 py-4">
+      <div className="container mt-24 mx-auto px-4 sm:px-8 lg:px-12 py-4">
         <h1 className="text-4xl font-bold mb-8">Gestion du patrimoine informatique</h1>
         <div className="space-y-10">
           {/* Introduction */}

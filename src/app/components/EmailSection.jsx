@@ -7,9 +7,14 @@ import Image from "next/image";
 
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError(null);
+    setSubmitting(true);
+
     const data = {
       email: e.target.email.value,
       subject: e.target.subject.value,
@@ -18,24 +23,27 @@ const EmailSection = () => {
     const JSONdata = JSON.stringify(data);
     const endpoint = "/api/send";
 
-    // Form the request for sending data to the server.
-    const options = {
-      // The method is POST because we are sending data.
-      method: "POST",
-      // Tell the server we're sending JSON.
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Body of the request is the JSON data we created above.
-      body: JSONdata,
-    };
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSONdata,
+      });
 
-    const response = await fetch(endpoint, options);
-    const resData = await response.json();
-
-    if (response.status === 200) {
-      console.log("Message sent.");
-      setEmailSubmitted(true);
+      if (response.status === 200) {
+        setEmailSubmitted(true);
+      } else {
+        setSubmitError(
+          "L'envoi du message a échoué. Merci de réessayer plus tard."
+        );
+      }
+    } catch (err) {
+      console.error("Erreur lors de l'envoi du message:", err);
+      setSubmitError("Impossible de joindre le serveur. Merci de réessayer.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -50,14 +58,24 @@ const EmailSection = () => {
           Contactez-moi
         </h5>
         <p className="text-[#ADB7BE] mb-4 max-w-md">
-          Je suis ouvert aux opportunités de stage, d'alternance ou de projets collaboratifs. 
-          N'hésitez pas à me contacter pour discuter de vos idées ou pour en savoir plus sur mon parcours !
+          Je suis ouvert aux opportunités de stage, d&apos;alternance ou de projets collaboratifs. 
+          N&apos;hésitez pas à me contacter pour discuter de vos idées ou pour en savoir plus sur mon parcours !
         </p>
         <div className="socials flex flex-row gap-2">
-          <Link href="github.com">
+          <Link
+            href="https://github.com/Brian310507"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Profil GitHub"
+          >
             <Image src={GithubIcon} alt="Github Icon" />
           </Link>
-          <Link href="linkedin.com">
+          <Link
+            href="https://www.linkedin.com/in/alexandre-roques-73b070297/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Profil LinkedIn"
+          >
             <Image src={LinkedinIcon} alt="Linkedin Icon" />
           </Link>
         </div>
@@ -69,6 +87,11 @@ const EmailSection = () => {
           </p>
         ) : (
           <form className="flex flex-col" onSubmit={handleSubmit}>
+            {submitError && (
+              <p className="text-red-400 text-sm mb-4" role="alert">
+                {submitError}
+              </p>
+            )}
             <div className="mb-6">
               <label
                 htmlFor="email"
@@ -111,15 +134,18 @@ const EmailSection = () => {
               <textarea
                 name="message"
                 id="message"
+                required
+                rows={5}
                 className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
                 placeholder="Décrivez votre projet ou votre proposition..."
               />
             </div>
             <button
               type="submit"
-              className="bg-gradient-to-r from-blue-400 via-blue-600 to-violet-700 hover:from-blue-500 hover:via-blue-700 hover:to-violet-800 text-white font-medium py-2.5 px-5 rounded-lg w-full transition-all duration-300"
+              disabled={submitting}
+              className="bg-gradient-to-r from-blue-400 via-blue-600 to-violet-700 hover:from-blue-500 hover:via-blue-700 hover:to-violet-800 text-white font-medium py-2.5 px-5 rounded-lg w-full transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Envoyer le message
+              {submitting ? "Envoi en cours..." : "Envoyer le message"}
             </button>
           </form>
         )}
