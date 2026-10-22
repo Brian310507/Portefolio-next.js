@@ -230,6 +230,53 @@ Error: Failed to collect page data for /api/send
 - Les articles de secours ont `url: '#'` → `target="_blank"` ouvrait un onglet vide.
 - **Correctif :** `target={article.url && article.url !== '#' ? '_blank' : undefined}`.
 
+### 5.7 — 🐛 Cartes d'actualités invisibles (opacité à 0)
+
+**Symptôme :** les articles sont bien présents (réponse API et DOM), mais **aucune carte n'est visible** sur la page.
+
+**Cause racine (confirmée dans `node_modules/framer-motion/dist/es/utils/use-in-view.mjs`) :**
+
+```js
+function useInView(ref, { once = false } = {}) {
+    const [isInView, setInView] = useState(false);
+    useEffect(() => {
+        if (!ref.current || (once && isInView)) return;  // ← 1er rendu : ref.current === null
+        ...
+        return inView(ref.current, onEnter, options);
+    }, [root, ref, margin, once]);   // ← deps STABLES : ne se ré-exécute JAMAIS
+    return isInView;
+}
+```
+
+- Pendant le chargement, `NewsSection` retourne un spinner **sans le `<ul ref={ref}>`** → `ref.current === null` au moment de l'exécution de l'effet → **aucun `IntersectionObserver` n'est créé**.
+- Quand les données arrivent, le `<ul>` monte et le ref se remplit, mais les dépendances de l'effet (`root, ref, margin, once`) sont stables → **l'effet ne se ré-exécute pas**.
+- `isInView` reste donc `false` à vie → les cartes restent dans l'état `initial` = `{ y: 50, opacity: 0 }` → **100 % invisibles**.
+
+**Correctif (`src/app/components/NewsSection.js`) :**
+- Suppression du couplet `useRef` + `useInView` + `cardVariants`.
+- Utilisation de **`whileInView`** : l'observateur est créé **par chaque `motion.li` à son propre montage**, donc robuste au rendu conditionnel :
+  ```jsx
+  <motion.li
+    key={article.id}
+    initial={{ y: 50, opacity: 0 }}
+    whileInView={{ y: 0, opacity: 1 }}
+    viewport={{ once: true, amount: 0.15 }}
+    transition={{ duration: 0.3, delay: Math.min(index, 8) * 0.08 }}
+  >
+  ```
+- Le `delay` est plafonné (`Math.min(index, 8)`) pour éviter d'attendre ~2 s avant l'affichage des dernières cartes.
+
+> ⚠️ **Note :** `ProjectsSection.jsx` utilise encore l'ancien pattern `useInView`, mais il n'est **pas affecté** car son `<ul ref={ref}>` est rendu dès le premier commit (et le composant n'est pas utilisé dans `page.js` actuellement).
+
+### 5.8 — Cartes sans illustration quasi noires
+
+**Symptôme :** les articles sans image (Google News ne fournit pas d'illustration) affichaient un bloc `from-blue-900/20 to-purple-900/20` avec icône grise → quasi invisible sur le fond `#1d1d1d`.
+
+**Correctifs :**
+- Fallback rehaussé : `bg-gradient-to-br from-blue-900/60 via-indigo-900/50 to-purple-900/60`, icône `text-blue-300` + nom de la source en `text-blue-200`.
+- **Entrelacement des sources** dans `fetchNewsFromRSS()` : au tri exclusivement par date, les articles Google News (les plus récents, sans image) dominaient la sélection. Désormais les 5 sources alternent → mélange fraîcheur + illustrations.
+- **Résultat mesuré :** 20 articles dont **13 avec image / 7 sans**, toutes les sources représentées (Numerama, 01net, Frandroid, ActuIA, France TV…).
+
 ---
 
 ## 6. Tableau récapitulatif de tous les correctifs
@@ -256,8 +303,10 @@ Error: Failed to collect page data for /api/send
 | 18 | 🟠 Contenu | `api/news/alternative/route.js` | CDATA/HTML bruts dans les textes | Nettoyage complet + 2 passes de strip |
 | 19 | 🟠 Contenu | `api/news/alternative/route.js` | Images non extraites après nettoyage | Extraction **avant** nettoyage + `media:content` |
 | 20 | 🟡 Aff. | `NewsSection.js` | Onglet vide sur `url:'#'`, badge source débordant | `target` conditionnel + `truncate` |
+| 21 | 🔴 Visibilité | `NewsSection.js` | **Cartes d'actualités invisibles** (`opacity: 0` — `useInView` jamais déclenché) | Remplacement par `whileInView` (observateur monté avec chaque carte) |
+| 22 | 🟡 Aff. | `NewsSection.js` + `api/news/alternative/route.js` | Cartes sans image quasi noires + mono-source | Fallback contrasté + entrelacement des 5 sources |
 
-**Légende :** 🔴 bloquait le build · 🟠 bug fonctionnel · 🟡 défaut d'affichage/UX
+**Légende :** 🔴 bloquait le build ou la visibilité · 🟠 bug fonctionnel · 🟡 défaut d'affichage/UX
 
 ---
 
@@ -269,7 +318,8 @@ Error: Failed to collect page data for /api/send
 | Build production | `npx next build` | ✅ 14/14 pages générées, exit code 0 |
 | Page d'accueil | `GET /` | ✅ 200 — `lang="fr"`, bon `<title>`, liens sociaux présents |
 | Pages blocs | `GET /blocs/bloc1…bloc6`, `/blocs/tableau-competence` | ✅ 200 |
-| API actualités | `GET /api/news/alternative` | ✅ 200 — 20 articles, sources réelles, images présentes |
+| API actualités | `GET /api/news/alternative` | ✅ 200 — 20 articles entrelacés (13 avec image / 7 sans), sources réelles |
+| Visibilité cartes | Vérification du bundle compilé | ✅ `whileInView` présent dans `.next/static/chunks` (l'ancien `useInView` a disparu de `NewsSection`) |
 
 Démarrage de test : `npx next start -p 3113` (serveurs de test arrêtés après validation).
 

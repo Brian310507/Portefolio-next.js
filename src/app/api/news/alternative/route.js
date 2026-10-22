@@ -182,7 +182,7 @@ function parseRSS(xmlText, sourceName = 'RSS Feed') {
 
 // Fonction pour récupérer des actualités depuis les sources RSS
 async function fetchNewsFromRSS() {
-  const allArticles = [];
+  const articlesBySource = [];
   
   for (const source of RSS_SOURCES) {
     try {
@@ -200,22 +200,30 @@ async function fetchNewsFromRSS() {
         const sourceArticles = articles
           .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
           .slice(0, 8);
-        allArticles.push(...sourceArticles);
+        articlesBySource.push(sourceArticles);
       }
     } catch (error) {
       console.error(`Erreur lors de la récupération de ${source.name}:`, error);
     }
   }
   
-  // Trier par date (plus récent en premier) et limiter à 20 articles
-  const sortedArticles = allArticles
-    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
-    .slice(0, 20);
+  // Entrelacer les sources : alterne articles récents (Google News, sans image)
+  // et articles illustrés (Le Monde, Numerama, 01net, Frandroid)
+  const interleaved = [];
+  const maxLength = Math.max(0, ...articlesBySource.map((a) => a.length));
+  for (let i = 0; i < maxLength && interleaved.length < 20; i++) {
+    for (const sourceArticles of articlesBySource) {
+      if (sourceArticles[i]) {
+        interleaved.push(sourceArticles[i]);
+      }
+      if (interleaved.length >= 20) break;
+    }
+  }
   
   return {
     success: true,
-    articles: sortedArticles,
-    totalResults: sortedArticles.length,
+    articles: interleaved,
+    totalResults: interleaved.length,
     lastUpdated: new Date().toISOString()
   };
 }

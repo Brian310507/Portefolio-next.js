@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const NewsSection = () => {
@@ -9,8 +9,6 @@ const NewsSection = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
 
   const fetchNews = async () => {
     try {
@@ -72,11 +70,6 @@ const NewsSection = () => {
   const truncateText = (text, maxLength = 80) => {
     if (!text) return '';
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-  };
-
-  const cardVariants = {
-    initial: { y: 50, opacity: 0 },
-    animate: { y: 0, opacity: 1 },
   };
 
   if (loading && news.length === 0) {
@@ -148,14 +141,14 @@ const NewsSection = () => {
       )}
 
       {/* News grid - Cards with title below */}
-      <ul ref={ref} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {news.map((article, index) => (
           <motion.li
             key={article.id}
-            variants={cardVariants}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.3, delay: Math.min(index, 8) * 0.08 }}
             className="group"
           >
             <a 
@@ -190,12 +183,15 @@ const NewsSection = () => {
                   
                   {/* Fallback image if no image or error */}
                   <div 
-                    className="w-full h-full items-center justify-center bg-gradient-to-br from-blue-900/20 to-purple-900/20"
+                    className="w-full h-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-blue-900/60 via-indigo-900/50 to-purple-900/60"
                     style={{ display: article.imageUrl ? 'none' : 'flex' }}
                   >
-                    <svg className="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-10 h-10 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                     </svg>
+                    <span className="text-xs text-blue-200 font-medium px-3 text-center">
+                      {article.source}
+                    </span>
                   </div>
                   
                   {/* Source badge overlay */}
