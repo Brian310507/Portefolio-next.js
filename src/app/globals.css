@@ -126,9 +126,13 @@ body::after {
     box-shadow: 0 0 10px rgba(77, 232, 232, 0.4);
   }
 
-  /* Bandes de danger rouge/noir */
+  /* Liseré néon rouge → cyan (remplace l'ancien motif de bandes de danger,
+     qui rappelait un ruban de chantier) */
   .stripes {
-    background: repeating-linear-gradient(-45deg, #ff1d3d 0 10px, #0a0306 10px 20px);
+    background: linear-gradient(90deg, #ff1d3d 0%, #4de8e8 50%, #ff1d3d 100%);
+    background-size: 200% 100%;
+    animation: neonSlide 8s linear infinite;
+    box-shadow: 0 0 12px rgba(255, 29, 61, 0.55);
   }
 
   /* Glitch (texte court/statique uniquement) */
@@ -171,9 +175,17 @@ body::after {
   93% { transform: translate(-2px, -1px); }
 }
 
+@keyframes neonSlide {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .glitch::before,
   .glitch::after {
+    animation: none;
+  }
+  .stripes {
     animation: none;
   }
 }

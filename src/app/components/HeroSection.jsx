@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -22,7 +21,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="col-span-12 sm:col-span-8 place-self-center text-center sm:text-left justify-self-start relative"
+          className="col-span-12 place-self-center text-center relative"
         >
           <h1 className="text-white mb-8 text-3xl sm:text-4xl lg:text-6xl lg:leading-tight font-display font-bold italic uppercase tracking-wide">
             <span
@@ -51,12 +50,12 @@ const HeroSection = () => {
               className="text-transparent bg-clip-text bg-gradient-to-r from-acid to-neon-cyan"
             />
           </h1>
-          <p className="text-[#ADB7BE] text-base sm:text-lg mb-8 lg:text-xl max-w-2xl mx-auto sm:mx-0">
+          <p className="text-[#ADB7BE] text-base sm:text-lg mb-8 lg:text-xl max-w-2xl mx-auto">
             Passionné par le développement web et applicatif, je m&apos;efforce de créer des solutions innovantes 
             en utilisant les dernières technologies. Toujours en apprentissage, je cherche à améliorer 
             constamment mes compétences.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/#contact"
               className="btn-acid px-8 py-4 shadow-neon-acid"
@@ -71,23 +70,6 @@ const HeroSection = () => {
             >
               Télécharger CV
             </a>
-          </div>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="col-span-12 sm:col-span-4 place-self-center mt-8 lg:mt-0"
-        >
-          <div className="rounded-full bg-night-800 w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] relative overflow-hidden ring-4 ring-acid/60 shadow-neon-cyan">
-            <Image
-              src="/images/image2.png"
-              alt="Portrait d'Alexandre ROQUES"
-              className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-full max-h-full w-auto h-auto object-contain"
-              width={300}
-              height={300}
-              priority
-            />
           </div>
         </motion.div>
       </div>

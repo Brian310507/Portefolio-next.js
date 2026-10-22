@@ -1,6 +1,6 @@
 "use client";
 import React, { useTransition, useState } from "react";
-import Image from "next/image";
+import SphereScan from "./SphereScan";
 import TabButton from "./TabButton";
 
 const TAB_DATA = [
@@ -53,13 +53,7 @@ const AboutSection = () => {
   return (
     <section className="text-white" id="about">
       <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-        <Image
-              src="/images/computer-image.png"
-              alt="Poste de travail avec un ordinateur"
-              width={500}
-              height={500}
-              className="w-full h-auto rounded-lg border border-neon-cyan/40 shadow-neon-cyan"
-            />
+        <SphereScan className="w-full aspect-square rounded-lg shadow-neon-cyan" />
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
           <h2 className="section-title mb-4">À propos de moi</h2>
           <p className="text-base lg:text-lg">
