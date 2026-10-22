@@ -52,9 +52,9 @@ const EmailSection = () => {
       id="contact"
       className="grid md:grid-cols-2 my-12 md:my-12 py-24 gap-4 relative"
     >
-      <div className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900 via-violet-900 to-transparent rounded-full h-80 w-80 z-0 blur-lg absolute top-3/4 -left-4 transform -translate-x-1/2 -translate-1/2"></div>
+      <div className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neon-pink/30 via-neon-cyan/20 to-transparent rounded-full h-80 w-80 z-0 blur-lg absolute top-3/4 -left-4 transform -translate-x-1/2 -translate-1/2"></div>
       <div className="z-10">
-        <h5 className="text-xl font-bold text-white my-2">
+        <h5 className="text-2xl font-display font-bold uppercase italic text-white my-2">
           Contactez-moi
         </h5>
         <p className="text-[#ADB7BE] mb-4 max-w-md">
@@ -82,13 +82,13 @@ const EmailSection = () => {
       </div>
       <div>
         {emailSubmitted ? (
-          <p className="text-green-500 text-sm mt-2">
+          <p className="text-toxic text-sm mt-2 font-semibold">
             Email envoyé avec succès !
           </p>
         ) : (
           <form className="flex flex-col" onSubmit={handleSubmit}>
             {submitError && (
-              <p className="text-red-400 text-sm mb-4" role="alert">
+              <p className="text-neon-pink text-sm mb-4" role="alert">
                 {submitError}
               </p>
             )}
@@ -104,7 +104,7 @@ const EmailSection = () => {
                 type="email"
                 id="email"
                 required
-                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                className="input-hud"
                 placeholder="votre@email.com"
               />
             </div>
@@ -120,7 +120,7 @@ const EmailSection = () => {
                 type="text"
                 id="subject"
                 required
-                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                className="input-hud"
                 placeholder="Proposition de stage"
               />
             </div>
@@ -136,14 +136,14 @@ const EmailSection = () => {
                 id="message"
                 required
                 rows={5}
-                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                className="input-hud"
                 placeholder="Décrivez votre projet ou votre proposition..."
               />
             </div>
             <button
               type="submit"
               disabled={submitting}
-              className="bg-gradient-to-r from-blue-400 via-blue-600 to-violet-700 hover:from-blue-500 hover:via-blue-700 hover:to-violet-800 text-white font-medium py-2.5 px-5 rounded-lg w-full transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="btn-acid py-3 px-5 w-full"
             >
               {submitting ? "Envoi en cours..." : "Envoyer le message"}
             </button>

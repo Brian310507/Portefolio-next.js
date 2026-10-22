@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 export default function Bloc2() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#121212]">
+    <main className="flex min-h-screen flex-col bg-night-950">
       <Navbar />
       <div className="container mt-24 mx-auto px-4 sm:px-8 lg:px-12 py-4">
-        <h1 className="text-4xl font-bold mb-8">Répondre aux incidents et au demande d&apos;assistance et d&apos;évolution</h1>
+        <h1 className="text-4xl font-display font-bold italic uppercase mb-8">Répondre aux incidents et au demande d&apos;assistance et d&apos;évolution</h1>
         <div className="space-y-10">
           {/* Introduction */}
           <div>
@@ -20,12 +20,12 @@ export default function Bloc2() {
 
           {/* Atelier pro 1er semestre */}
           <div>
-            <h2 className="text-2xl font-bold text-blue-300 mb-2">Atelier professionnalisants du 1er semestre</h2>
-            <Link href="#outils" className="text-blue-400 underline font-semibold">Outils et méthodes de gestion des incidents</Link>
+            <h2 className="text-2xl font-bold text-acid mb-2">Atelier professionnalisants du 1er semestre</h2>
+            <Link href="#outils" className="text-neon-cyan underline font-semibold">Outils et méthodes de gestion des incidents</Link>
             <p className="text-gray-200 mt-2">Lors de ma première année de formation, nous avons eu des ateliers professionnalisants qui m&apos;ont permis d&apos;analyser différentes situations et de pouvoir proposer par la suite de proposer des évolutions.</p>
             <div className="mt-6 flex flex-col md:flex-row md:space-x-8 items-start">
               <div className="flex-1 mb-4 md:mb-0">
-                <Image src="/images/bloc2/Gestion_cas_utilisateurs.png" alt="Gestion des incidents" width={400} height={300} className="rounded-lg border border-[#33353F] mx-auto" />
+                <Image src="/images/bloc2/Gestion_cas_utilisateurs.png" alt="Gestion des incidents" width={400} height={300} className="rounded-lg border border-neon-cyan/30 mx-auto" />
                 <div className="flex items-center justify-center mt-2">
                 
                 </div>
@@ -42,11 +42,11 @@ export default function Bloc2() {
 
           {/* Stage de première année */}
           <div>
-            <h2 className="text-2xl font-bold text-blue-300 mb-2">Stage de première année</h2>
-            <Link href="#applications" className="text-blue-400 underline font-semibold">Traiter des demandes concernant les applications</Link>
+            <h2 className="text-2xl font-bold text-acid mb-2">Stage de première année</h2>
+            <Link href="#applications" className="text-neon-cyan underline font-semibold">Traiter des demandes concernant les applications</Link>
             <div className="mt-6 flex flex-col md:flex-row md:space-x-8 items-start">
               <div className="flex-1 mb-4 md:mb-0">
-                <Image src="/images/bloc2/image_maquette_stage1.png" alt="Applications" width={400} height={200} className="rounded-lg border border-[#33353F] mx-auto" />
+                <Image src="/images/bloc2/image_maquette_stage1.png" alt="Applications" width={400} height={200} className="rounded-lg border border-neon-cyan/30 mx-auto" />
                 
               </div>
               <div className="flex-1">
@@ -63,11 +63,11 @@ export default function Bloc2() {
 
           {/* Stage de deuxième année */}
           <div>
-            <h2 className="text-2xl font-bold text-blue-300 mb-2">Stage de deuxième année</h2>
-            <Link href="#maquette" className="text-blue-400 underline font-semibold">Traiter les demandes du client sous forme de maquette</Link>
+            <h2 className="text-2xl font-bold text-acid mb-2">Stage de deuxième année</h2>
+            <Link href="#maquette" className="text-neon-cyan underline font-semibold">Traiter les demandes du client sous forme de maquette</Link>
             <div className="mt-6 flex flex-col md:flex-row md:space-x-8 items-start">
               <div className="flex-1 mb-4 md:mb-0">
-                <Image src="/images/bloc2/maquette-dashboard-Tortuga.png" alt="Maquette 1" width={400} height={200} className="rounded-lg border border-[#33353F] mx-auto" />
+                <Image src="/images/bloc2/maquette-dashboard-Tortuga.png" alt="Maquette 1" width={400} height={200} className="rounded-lg border border-neon-cyan/30 mx-auto" />
                
               </div>
               <div className="flex-1">
@@ -94,7 +94,7 @@ export default function Bloc2() {
         </div>
          {/* Affichage dynamique de toutes les images du dossier bloc1 */}
          <div className="mt-16">
-          <h2 className="text-2xl font-bold text-blue-300 mb-4">Toutes les images du bloc 2</h2>
+          <h2 className="text-2xl font-display font-bold uppercase text-acid mb-4">Toutes les images du bloc 2</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               '/images/bloc2/Gestion_cas_utilisateurs.png',
@@ -107,7 +107,7 @@ export default function Bloc2() {
                 alt={`Bloc 2 image ${idx + 1}`}
                 width={400}
                 height={250}
-                className="rounded-lg border border-[#33353F] mx-auto"
+                className="rounded-lg border border-neon-cyan/30 mx-auto"
               />
             ))}
           </div>

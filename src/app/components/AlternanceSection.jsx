@@ -12,8 +12,8 @@ const AlternanceSection = () => {
         className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
       >
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-violet-700">
+          <h2 className="text-4xl md:text-5xl font-display font-bold italic uppercase tracking-wide mb-4">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-acid to-neon-cyan">
               Recherche d&apos;Alternance
             </span>
           </h2>
@@ -24,9 +24,9 @@ const AlternanceSection = () => {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-[#18191E] p-8 rounded-lg border border-[#33353F]"
+            className="p-8 hud-card"
           >
-            <h3 className="text-2xl font-bold text-white mb-4">Alternance 2025-2026</h3>
+            <h3 className="text-2xl font-display font-bold uppercase text-white mb-4">Alternance 2025-2026</h3>
             <p className="text-[#ADB7BE] mb-4">
               Je recherche une alternance en développement web ou applicatif pour la rentrée 2025-2026, 
               avec une perspective de prolongation jusqu&apos;en master. Cette expérience professionnelle 
@@ -35,15 +35,15 @@ const AlternanceSection = () => {
             </p>
             <ul className="space-y-2 text-[#ADB7BE]">
               <li className="flex items-start">
-                <span className="text-blue-400 mr-2">•</span>
+                <span className="text-acid mr-2">•</span>
                 <span>Rythme : 3 semaines en entreprise / 1 semaine en formation</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-400 mr-2">•</span>
+                <span className="text-acid mr-2">•</span>
                 <span>Durée : 1 an minimum, avec possibilité de prolongation</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-400 mr-2">•</span>
+                <span className="text-acid mr-2">•</span>
                 <span>Localisation : Flexible sur toute la France</span>
               </li>
             </ul>
@@ -53,9 +53,9 @@ const AlternanceSection = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="bg-[#18191E] p-8 rounded-lg border border-[#33353F]"
+            className="p-8 hud-card"
           >
-            <h3 className="text-2xl font-bold text-white mb-4">Ce que je recherche</h3>
+            <h3 className="text-2xl font-display font-bold uppercase text-white mb-4">Ce que je recherche</h3>
             <p className="text-[#ADB7BE] mb-4">
               Je souhaite intégrer une entreprise qui me permettra de développer mes compétences 
               techniques tout en participant à des projets innovants. Mon objectif est de contribuer 
@@ -64,18 +64,18 @@ const AlternanceSection = () => {
             </p>
             <div className="space-y-4">
               <div>
-                <h4 className="text-xl font-semibold text-white mb-2">Environnement idéal</h4>
+                <h4 className="text-xl font-display font-semibold uppercase text-white mb-2">Environnement idéal</h4>
                 <ul className="space-y-2 text-[#ADB7BE]">
                   <li className="flex items-start">
-                    <span className="text-violet-400 mr-2">•</span>
+                    <span className="text-neon-cyan mr-2">•</span>
                     <span>Équipe technique dynamique et mentorat</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-violet-400 mr-2">•</span>
+                    <span className="text-neon-cyan mr-2">•</span>
                     <span>Projets variés et challenges techniques</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-violet-400 mr-2">•</span>
+                    <span className="text-neon-cyan mr-2">•</span>
                     <span>Culture d&apos;apprentissage et d&apos;innovation</span>
                   </li>
                 </ul>
@@ -92,7 +92,7 @@ const AlternanceSection = () => {
         >
           <a
             href="/#contact"
-            className="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-blue-400 via-blue-600 to-violet-700 hover:from-blue-500 hover:via-blue-700 hover:to-violet-800 text-white transition-all duration-300"
+            className="btn-acid px-8 py-4 shadow-neon-acid"
           >
             Me contacter pour en discuter
           </a>

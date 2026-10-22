@@ -58,10 +58,10 @@ const AboutSection = () => {
               alt="Poste de travail avec un ordinateur"
               width={500}
               height={500}
-              className="w-full h-auto rounded-lg"
+              className="w-full h-auto rounded-lg border border-neon-cyan/40 shadow-neon-cyan"
             />
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
-          <h2 className="text-4xl font-bold text-white mb-4">À propos de moi</h2>
+          <h2 className="section-title mb-4">À propos de moi</h2>
           <p className="text-base lg:text-lg">
             Je suis un étudiant passionné par le développement web et applicatif. 
             J&apos;ai acquis des compétences dans divers langages de programmation comme C, Python, Java, 

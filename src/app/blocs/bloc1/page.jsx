@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 export default function Bloc1() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#121212]">
+    <main className="flex min-h-screen flex-col bg-night-950">
       <Navbar />
       <div className="container mt-24 mx-auto px-4 sm:px-8 lg:px-12 py-4">
-        <h1 className="text-4xl font-bold mb-8">Gestion du patrimoine informatique</h1>
+        <h1 className="text-4xl font-display font-bold italic uppercase mb-8">Gestion du patrimoine informatique</h1>
         <div className="space-y-10">
           {/* Introduction */}
           <div>
@@ -23,12 +23,12 @@ export default function Bloc1() {
 
           {/* Atelier pro 1er semestre */}
           <div>
-            <h2 className="text-2xl font-bold text-blue-300 mb-2">Atelier professionnalisants du 1er semestre</h2>
-            <Link href="#recenser" className="text-blue-400 underline font-semibold">Recenser et identifier les ressources numériques</Link>
+            <h2 className="text-2xl font-bold text-acid mb-2">Atelier professionnalisants du 1er semestre</h2>
+            <Link href="#recenser" className="text-neon-cyan underline font-semibold">Recenser et identifier les ressources numériques</Link>
 
             <div className="mt-6 flex flex-col md:flex-row md:space-x-8 items-start">
               <div className="flex-1 mb-4 md:mb-0">
-                <Image src="/images/bloc1/Capture_d’ecran_tp_GLPI.jpg" alt="Tableau de recensement" width={500} height={300} className="rounded-lg border border-[#33353F] mx-auto" />
+                <Image src="/images/bloc1/Capture_d’ecran_tp_GLPI.jpg" alt="Tableau de recensement" width={500} height={300} className="rounded-lg border border-neon-cyan/30 mx-auto" />
                 {/* PDF lien 1 */}
                 
               </div>
@@ -46,10 +46,10 @@ export default function Bloc1() {
 
           {/* Mettre en place et vérifier les niveaux d&apos;habilitation */}
           <div>
-            <Link href="#habilitation" className="text-blue-400 underline font-semibold">Mettre en place et vérifier les niveaux d&apos;habilitation associés à un service</Link>
+            <Link href="#habilitation" className="text-neon-cyan underline font-semibold">Mettre en place et vérifier les niveaux d&apos;habilitation associés à un service</Link>
             <div className="mt-4 flex flex-col md:flex-row md:space-x-8 items-start">
               <div className="flex-1 mb-4 md:mb-0">
-                <Image src="/images/bloc1/Capture_d’ecran_travaille_GLPI.jpg" alt="Connexion" width={350} height={250} className="rounded-lg border border-[#33353F] mx-auto" />
+                <Image src="/images/bloc1/Capture_d’ecran_travaille_GLPI.jpg" alt="Connexion" width={350} height={250} className="rounded-lg border border-neon-cyan/30 mx-auto" />
               </div>
               <div className="flex-1 flex items-center">
                 <p className="text-gray-200">Mise en place de différents statuts qui permet d&apos;accorder des droits aux utilisateurs en fonction de leur statut.</p>
@@ -59,11 +59,11 @@ export default function Bloc1() {
 
           {/* Stage 2ème année BTS SIO */}
           <div>
-            <h2 className="text-2xl font-bold text-blue-300 mb-2">Stage de 2eme année BTS SIO</h2>
-            <Link href="#sauvegardes" className="text-blue-400 underline font-semibold">Gestion des sauvegardes et des différentes versions</Link>
+            <h2 className="text-2xl font-bold text-acid mb-2">Stage de 2eme année BTS SIO</h2>
+            <Link href="#sauvegardes" className="text-neon-cyan underline font-semibold">Gestion des sauvegardes et des différentes versions</Link>
             <div className="mt-4 flex flex-col md:flex-row md:space-x-8 items-start">
               <div className="flex-1 mb-4 md:mb-0">
-                <Image src="/images/bloc1/capture_git_hub_Tortuga.png" alt="GitHub dépôt" width={500} height={300} className="rounded-lg border border-[#33353F] mx-auto" />
+                <Image src="/images/bloc1/capture_git_hub_Tortuga.png" alt="GitHub dépôt" width={500} height={300} className="rounded-lg border border-neon-cyan/30 mx-auto" />
               </div>
               <div className="flex-1 flex items-center">
                 <p className="text-gray-200">Mise en place d&apos;un dépôt qui référence les différentes versions du dashboard admin Tortuga.</p>
@@ -74,7 +74,7 @@ export default function Bloc1() {
 
         {/* Affichage dynamique de toutes les images du dossier bloc1 */}
         <div className="mt-16">
-          <h2 className="text-2xl font-bold text-blue-300 mb-4">Toutes les images du bloc 1</h2>
+          <h2 className="text-2xl font-display font-bold uppercase text-acid mb-4">Toutes les images du bloc 1</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               '/images/bloc1/capture_git_hub_Tortuga.png',
@@ -88,7 +88,7 @@ export default function Bloc1() {
                 alt={`Bloc 1 image ${idx + 1}`}
                 width={400}
                 height={250}
-                className="rounded-lg border border-[#33353F] mx-auto"
+                className="rounded-lg border border-neon-cyan/30 mx-auto"
               />
             ))}
           </div>

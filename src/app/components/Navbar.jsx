@@ -71,7 +71,9 @@ const Navbar = () => {
   }, [dropdownOpen]);
 
   return (
-    <nav className="fixed mx-auto border-b border-[#33353F] top-0 left-0 right-0 z-10 bg-[#121212]">
+    <nav className="fixed mx-auto top-0 left-0 right-0 z-10 bg-night-950/95 backdrop-blur border-b-2 border-acid">
+      {/* Bandes de danger façon Cyberpunk */}
+      <div className="stripes h-1.5 w-full" aria-hidden="true" />
       <div className="flex container lg:py-4 flex-wrap items-center justify-between mx-auto px-4 py-2">
         <div className="flex items-center space-x-4">
           <div className="relative" ref={dropdownRef}>
@@ -80,19 +82,21 @@ const Navbar = () => {
               aria-label="Ouvrir le menu des blocs"
               aria-expanded={dropdownOpen}
               aria-haspopup="true"
-              className="flex items-center gap-1 text-slate-200 hover:text-white"
+              className="flex items-center gap-1 text-acid hover:text-neon-cyan transition-colors"
             >
               <Bars3Icon className="h-6 w-6" />
-              <span className="hidden lg:inline text-sm">Blocs</span>
+              <span className="hidden lg:inline text-sm font-display font-bold uppercase tracking-widest">
+                Blocs
+              </span>
             </button>
             {dropdownOpen && (
-              <div className="absolute left-0 mt-2 w-56 bg-[#121212] border border-[#33353F] rounded-md shadow-lg py-1">
+              <div className="absolute left-0 mt-2 w-56 bg-night-900 border border-acid shadow-neon-acid py-1 z-20">
                 {blocLinks.map((link, index) => (
                   <Link
                     key={index}
                     href={link.path}
                     onClick={() => setDropdownOpen(false)}
-                    className="block px-4 py-2 text-sm text-slate-200 hover:bg-[#33353F] hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-200 font-semibold uppercase tracking-wide hover:bg-neon-cyan hover:text-[#0A0306] transition-colors"
                   >
                     {link.title}
                   </Link>
@@ -104,7 +108,7 @@ const Navbar = () => {
         <div className="flex-1 flex justify-center">
           <Link
             href={"/"}
-            className="text-xl md:text-3xl text-white font-semibold"
+            className="text-xl md:text-3xl font-display font-bold italic uppercase tracking-wide text-acid text-glow-acid"
           >
             Alexandre ROQUES
           </Link>
@@ -114,7 +118,7 @@ const Navbar = () => {
             <button
               onClick={() => setNavbarOpen(true)}
               aria-label="Ouvrir le menu de navigation"
-              className="flex items-center px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
+              className="flex items-center px-3 py-2 border border-acid/60 text-acid hover:text-neon-cyan hover:border-neon-cyan transition-colors"
             >
               <Bars3Icon className="h-5 w-5" />
             </button>
@@ -122,7 +126,7 @@ const Navbar = () => {
             <button
               onClick={() => setNavbarOpen(false)}
               aria-label="Fermer le menu de navigation"
-              className="flex items-center px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
+              className="flex items-center px-3 py-2 border border-acid/60 text-acid hover:text-neon-cyan hover:border-neon-cyan transition-colors"
             >
               <XMarkIcon className="h-5 w-5" />
             </button>

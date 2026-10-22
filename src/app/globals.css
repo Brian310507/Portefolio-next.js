@@ -3,22 +3,177 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-rgb: 18, 18, 18; /* #121212 */
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-rgb: 18, 18, 18;
-  }
+  --foreground: #f4e9ea;
+  --background: #0a0306;
 }
 
 html {
   scroll-behavior: smooth;
+  /* La nav est fixe : on décale les ancres (#about, #contact...) */
+  scroll-padding-top: 96px;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background-color: rgb(var(--background-rgb));
+  color: var(--foreground);
+  background-color: var(--background);
+  /* Halo rouge en haut (menus in-game) + grille technique crimson */
+  background-image:
+    radial-gradient(
+      1200px 520px at 50% -8%,
+      rgba(255, 29, 61, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(rgba(255, 29, 61, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 29, 61, 0.035) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+}
+
+/* Sélection : style toggle ON du jeu (cyan sur noir) */
+::selection {
+  background: #4de8e8;
+  color: #0a0306;
+}
+
+/* Scanlines subtles (effet écran animé) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0 2px,
+    rgba(0, 0, 0, 0.22) 2px 3px
+  );
+  opacity: 0.4;
+}
+
+/* Scrollbar néon */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #12060a;
+}
+::-webkit-scrollbar-thumb {
+  background: #33111a;
+  border: 1px solid rgba(255, 29, 61, 0.5);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff1d3d;
+  border-color: #ff1d3d;
+}
+
+@layer components {
+  /* Titre de section : display italique façon logo Edgerunners */
+  .section-title {
+    @apply font-display text-4xl md:text-5xl font-bold italic uppercase tracking-wide;
+    /* Labels rouges des menus in-game */
+    color: #ff3b52;
+    text-shadow: 0 0 16px rgba(255, 29, 61, 0.45);
+  }
+
+  .text-glow-acid {
+    text-shadow: 0 0 14px rgba(255, 29, 61, 0.65), 0 0 42px rgba(255, 29, 61, 0.25);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 14px rgba(77, 232, 232, 0.6);
+  }
+
+  /* Bouton principal rouge (style bouton de commande des menus) */
+  .btn-acid {
+    @apply inline-block font-display font-bold uppercase tracking-widest text-white transition-all duration-200;
+    background: #e00b2c;
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  }
+  .btn-acid:hover {
+    background: #ff1d3d;
+    filter: drop-shadow(0 0 10px rgba(255, 29, 61, 0.75));
+  }
+  .btn-acid:disabled {
+    @apply opacity-50 cursor-not-allowed;
+    filter: none;
+  }
+
+  /* Bouton contour cyan (style toggle ON) */
+  .btn-ghost {
+    @apply inline-block font-display font-bold uppercase tracking-widest text-neon-cyan border border-neon-cyan transition-all duration-200;
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  }
+  .btn-ghost:hover {
+    background: rgba(77, 232, 232, 0.12);
+    filter: drop-shadow(0 0 10px rgba(77, 232, 232, 0.6));
+  }
+
+  /* Panneau HUD : coins coupés + bordure rouge (panneaux des menus) */
+  .hud-card {
+    background: linear-gradient(160deg, #1a090e 0%, #12060a 100%);
+    border: 1px solid rgba(255, 29, 61, 0.3);
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+
+  /* Champs de formulaire HUD : bordure rouge, focus cyan */
+  .input-hud {
+    @apply block w-full rounded-none border bg-night-900 p-2.5 text-sm text-gray-100 placeholder:text-[#9CA2A9];
+    border-color: rgba(255, 29, 61, 0.35);
+  }
+  .input-hud:focus {
+    outline: none;
+    border-color: #4de8e8;
+    box-shadow: 0 0 10px rgba(77, 232, 232, 0.4);
+  }
+
+  /* Bandes de danger rouge/noir */
+  .stripes {
+    background: repeating-linear-gradient(-45deg, #ff1d3d 0 10px, #0a0306 10px 20px);
+  }
+
+  /* Glitch (texte court/statique uniquement) */
+  .glitch {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
+  }
+  .glitch::before {
+    color: #4de8e8;
+    clip-path: inset(0 0 62% 0);
+    animation: glitchTop 2.6s infinite steps(3);
+    opacity: 0.85;
+  }
+  .glitch::after {
+    color: #ff1d3d;
+    clip-path: inset(62% 0 0 0);
+    animation: glitchBottom 3.2s infinite steps(3);
+    opacity: 0.85;
+  }
+}
+
+@keyframes glitchTop {
+  0%, 88%, 100% { transform: translate(0, 0); }
+  90% { transform: translate(-3px, -1px); }
+  94% { transform: translate(2px, 1px); }
+}
+
+@keyframes glitchBottom {
+  0%, 86%, 100% { transform: translate(0, 0); }
+  89% { transform: translate(3px, 1px); }
+  93% { transform: translate(-2px, -1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch::before,
+  .glitch::after {
+    animation: none;
+  }
 }
